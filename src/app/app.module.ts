@@ -1,16 +1,26 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PlanetsBrowserComponent } from './planets/planets-browser/planets-browser.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WelcomeComponent,
+    PlanetsBrowserComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot([
+      { path: 'welcome', component: WelcomeComponent },
+    ]),
+    HttpClientModule,
+    // HttpClient,
   ],
-  providers: [],
+  // providers: [], // angular 5. 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
