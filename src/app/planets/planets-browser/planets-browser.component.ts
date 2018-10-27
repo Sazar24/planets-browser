@@ -2,8 +2,7 @@ import { IPlanet } from './../models/planet';
 import { PlanetsApiService } from '../service/planets-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'planets-browser',
@@ -14,8 +13,8 @@ import { MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class PlanetsBrowserComponent {
   planetsAmmount;
   allPlanets: IPlanet[] = [];
-  dataSource = this.allPlanets;
-  // dataSource: MatTableDataSource<IPlanet[]>;
+  dataSource: MatTableDataSource<IPlanet>;
+  displayedColumns: string[] = ['name', 'population', 'climate', 'gravity'];
 
   _filterInputValue = '';
   get filterInputValue(): string {
@@ -25,25 +24,31 @@ export class PlanetsBrowserComponent {
   set filterInputValue(inputValue: string) {
     this._filterInputValue = inputValue;
     console.log(`_filterInputValue: ${this._filterInputValue}`);
+    console.log(`inputValue: ${inputValue}`);
 
+    const filtredData: IPlanet[] = this.allPlanets.filter(item => item.name.toLowerCase().includes(this._filterInputValue));
+    this.dataSource = new MatTableDataSource(filtredData);
   }
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private planetsApiService: PlanetsApiService) {
   }
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  
   ngOnInit() {
     this.planetsApiService.getPlanetsData().subscribe(
       incomingData => {
         this.planetsAmmount = +incomingData.count;
         this.allPlanets = incomingData.results;
-        console.log("planets ammount: " + this.planetsAmmount);
-        console.log("planets downloaded: " + this.allPlanets.length)
-        this.dataSource = this.allPlanets;
+        // console.log("planets downloaded: " + this.allPlanets.length)
+        
+        this.dataSource = new MatTableDataSource(this.allPlanets);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     )
   }
-  displayedColumns: string[] = ['name', 'population', 'climate', 'gravity'];
 }
+
+// example-source: https://material.angular.io/components/table/examples

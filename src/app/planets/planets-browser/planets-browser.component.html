@@ -1,51 +1,50 @@
 <div style="padding: 15px">
 
-  <!-- <p style="color:red; border-bottom: 1 dashed red">
+  <mat-card>
+<!-- <p style="color:red; border-bottom: 1 dashed red">
     {{planetsAmmount? null : "Can't connect to the server :("}}
   </p> -->
-  <p>
-    There is {{planetsAmmount ? planetsAmmount : "[...calculating...]"}} planets in data-base.
-  </p>
-  <p>
-    Pick one from the list, or filter it by planet name.
-  </p>
-  <mat-form-field class="filter-input">
-    <input matInput placeholder="planet name" value="" [(ngModel)]="filterInputValue">
-  </mat-form-field>
+    <p>
+      There is {{planetsAmmount ? planetsAmmount : "[...calculating...]"}} planets in data-base.
+    </p>
+    <p>
+      Pick one from the list to see its details. You can also filter them out by name.
+    </p>
+  </mat-card>
 
-<!-- //////////////////// -->
-
-  <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <mat-divider></mat-divider>
+  <mat-card>
+    <mat-form-field class="filter-input">
+      <input matInput placeholder="planet name" value="" [(ngModel)]="filterInputValue">
     </mat-form-field>
-    
-    <!-- <div class="mat-elevation-z8"> -->
-      <table *ngIf='allPlanets.length' mat-table [dataSource]="dataSource" matSort>
-    
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="population">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> population </th>
-          <td mat-cell *matCellDef="let row"> {{row.population}}% </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="climate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> climate </th>
-          <td mat-cell *matCellDef="let row"> {{row.climate}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="gravity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> gravity </th>
-          <td mat-cell *matCellDef="let row" > {{row.gravity}} </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-        </tr>
-      </table>
-    
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
+    <table *ngIf='allPlanets.length' mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="population">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> population </th>
+        <td mat-cell *matCellDef="let row"> {{row.population}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="climate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> climate </th>
+        <td mat-cell *matCellDef="let row"> {{row.climate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gravity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> gravity </th>
+        <td mat-cell *matCellDef="let row"> {{row.gravity}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </mat-card>
+</div>
