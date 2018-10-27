@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
 import { MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 const materials = [
   CommonModule,
@@ -11,6 +13,8 @@ const materials = [
   MatCheckboxModule,
   MatMenuModule,
   MatToolbarModule,
+  MatCardModule,
+  MatDividerModule
 ];
 
 @NgModule({
