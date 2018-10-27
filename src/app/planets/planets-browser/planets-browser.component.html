@@ -1,11 +1,11 @@
 <div style="padding: 15px">
 
   <mat-card>
-<!-- <p style="color:red; border-bottom: 1 dashed red">
-    {{planetsAmmount? null : "Can't connect to the server :("}}
-  </p> -->
+    <p style="color:red; border-bottom: 1 dashed red">
+      {{planetsOnServerAmmount? null : "Attempting connect to the server..."}}
+    </p>
     <p>
-      There is {{planetsAmmount ? planetsAmmount : "[...calculating...]"}} planets in data-base.
+      There is {{planetsOnServerAmmount ? planetsOnServerAmmount : "[...calculating...]"}} planets in data-base.
     </p>
     <p>
       Pick one from the list to see its details. You can also filter them out by name.
@@ -19,6 +19,11 @@
     </mat-form-field>
 
     <table *ngIf='allPlanets.length' mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="nr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>nr</th>
+        <td mat-cell *matCellDef="let row"> {{row.appId}} </td>
+      </ng-container>
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>

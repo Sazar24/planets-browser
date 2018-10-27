@@ -1,8 +1,6 @@
 import { IPlanet } from './planet';
 
-export interface IExternalData {
+export interface IPlanetsCollection {
   count: number;
-  // "next": "https://swapi.co/api/planets/?page=2",
-  // "previous": null,
   results: IPlanet[];
 }
