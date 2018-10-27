@@ -5,6 +5,11 @@ import { MatButtonModule, MatCheckboxModule, MatMenuModule } from '@angular/mate
 import { MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const materials = [
   CommonModule,
@@ -14,7 +19,12 @@ const materials = [
   MatMenuModule,
   MatToolbarModule,
   MatCardModule,
-  MatDividerModule
+  MatDividerModule,
+  MatInputModule,
+  MatIconModule,
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

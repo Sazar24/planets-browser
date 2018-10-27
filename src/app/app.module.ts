@@ -7,6 +7,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { PlanetsBrowserComponent } from './planets/planets-browser/planets-browser.component';
 import { MaterialModule } from './material-ui/material.module';
 import { HeaderComponent } from './header/header.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,11 @@ import { HeaderComponent } from './header/header.component';
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: 'planets', component: PlanetsBrowserComponent }
     ]),
     HttpClientModule,
-    MaterialModule, 
+    MaterialModule,
+    FormsModule
   ],
   // providers: [], // angular 5. 
   bootstrap: [AppComponent]
