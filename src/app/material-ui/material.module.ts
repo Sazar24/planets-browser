@@ -9,7 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list'
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const materials = [
   CommonModule,
@@ -24,7 +27,10 @@ const materials = [
   MatIconModule,
   MatProgressSpinnerModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatListModule,
+  MatGridListModule
 ];
 
 @NgModule({

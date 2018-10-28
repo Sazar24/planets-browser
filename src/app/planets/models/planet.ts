@@ -1,17 +1,35 @@
-export interface IPlanet {
+// export interface IPlanet {
+//   appId?: number;
+//   name: string;
+//   rotation_period: number,
+//   orbital_period: number,
+//   diameter: number, // średnica
+//   climate: string,
+//   gravity: string,
+//   terrain: string,
+//   surface_water: number,
+//   population: number,
+//   residents: string[],
+//   films: string[],
+//   created: Date,
+//   edited: Date,
+//   url: string,
+// }
+
+export class IPlanet {
   appId?: number;
   name: string;
-  rotation_period: number,
-  orbital_period: number,
-  diameter: number, // średnica
-  climate: string,
-  gravity: string,
-  terrain: string,
-  surface_water: number,
-  population: number,
-  residents: string[],
-  films: string[],
-  created: Date,
-  edited: Date,
-  url: string,
+  rotation_period: number;
+  orbital_period: number;
+  diameter: number; // średnica
+  climate: string;
+  gravity: string;
+  terrain: string;
+  surface_water: number;
+  population: number;
+  residents: string[];
+  films: string[];
+  created: Date;
+  edited: Date;
+  url: string;
 }

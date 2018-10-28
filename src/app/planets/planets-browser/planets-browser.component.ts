@@ -18,6 +18,7 @@ export class PlanetsBrowserComponent {
   private allPlanets: IPlanet[] = [];
   private dataSource: MatTableDataSource<IPlanet>;
   private displayedColumns: string[] = ['nr', 'name', 'population', 'climate', 'gravity'];
+  private progressBarValue: number = 0;
 
   _filterInputValue = '';
   get filterInputValue(): string {
@@ -25,22 +26,38 @@ export class PlanetsBrowserComponent {
   }
 
   set filterInputValue(inputValue: string) {
-    this.allPlanets = this.planetsManagerService.allPlanets;
     this._filterInputValue = inputValue;
     const filtredData: IPlanet[] = this.allPlanets.filter(item => item.name.toLowerCase().includes(this._filterInputValue));
     this.dataSource = new MatTableDataSource(filtredData);
   }
 
-  constructor(private planetsApiService: PlanetsApiService, private planetsManagerService: PlanetsManagerService) { }
-
-  // myReceiverSubject = new Subject();
+  constructor(private planetsApiService: PlanetsApiService, private planetsManager: PlanetsManagerService) { }
 
   ngOnInit() {
-    this.planetsManagerService.getAllPlanets();
-    const getConnection = this.planetsManagerService.my1subject.subscribe(
-      (item:IPlanet[]) => {
+    this.allPlanets = this.planetsManager.allPlanets;
+    this.planetsOnServerAmmount = this.planetsManager.planetsOnServerAmmount;
+    if (this.allPlanets.length) {
+      this.updateTableData(this.allPlanets);
+    }
+    else {
+      this.planetsManager.getAllPlanets();
+      this.subscribeToIncomingData();
+    }
+  }
+
+  subscribeToIncomingData() {
+
+    const planetsData$ = this.planetsManager.planetsDataPackage$.subscribe(
+      (item: IPlanet[]) => {
         this.updateTableData(item);
-        console.log("received data: ", item);
+        planetsData$.unsubscribe();
+      }
+    );
+
+    const planetsAmmount$ = this.planetsManager.fetchingProgress$.subscribe(
+      (data: { planetsTotalAmmount, planetsFetched }) => {
+        this.planetsOnServerAmmount = data.planetsTotalAmmount;
+        this.progressBarValue = data.planetsFetched * 100 / data.planetsTotalAmmount;
       }
     )
   }

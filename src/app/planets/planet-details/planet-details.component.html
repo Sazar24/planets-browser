@@ -1,7 +1,20 @@
-<p>
-  planet-details works!
-</p>
+{{planet ? null : "...Attempt to connect to the server... Or maybe there is no planet with that number...?"}}
+<mat-card *ngIf='planet' class="planet-details-view">
 
-<p>
-  Id of planet (extracted from URL) is : {{planetId}}
-</p>
+  <button (click)='onBack()' color='primary' mat-raised-button style="float:right">
+    << Back
+  </button>
+  <mat-card-title>{{planet.name}}</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item> Rotation period: {{planet.rotation_period}} </mat-list-item>
+      <mat-list-item> Orbital period: {{planet.orbital_period}} </mat-list-item>
+      <mat-list-item> Diameter: {{planet.diameter}} </mat-list-item>
+      <mat-list-item> Climate: {{planet.climate}} </mat-list-item>
+      <mat-list-item> Gravity: {{planet.gravity}} </mat-list-item>
+      <mat-list-item> Terrain: {{planet.terrain}} </mat-list-item>
+      <mat-list-item> Surface water: {{planet.surface_water}} </mat-list-item>
+      <mat-list-item> Population: {{planet.population}} </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

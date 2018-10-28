@@ -8,11 +8,11 @@ import { PlanetsApiService } from './planets-api.service';
   providedIn: 'root'
 })
 export class PlanetsManagerService {
-  private planetsOnServerAmmount: number;
-  allPlanets: IPlanet[] = [];
-  // planetsObserver = new
+  public planetsOnServerAmmount: number;
+  public allPlanets: IPlanet[] = [];
 
-  my1subject = new Subject();
+  public planetsDataPackage$ = new Subject();
+  public fetchingProgress$ = new Subject();
 
   constructor(private planetsApiService: PlanetsApiService) { }
 
@@ -22,12 +22,8 @@ export class PlanetsManagerService {
     })
   }
 
-  createIdProperty(item: IPlanet, id: number) {
-    item.appId = id + 1;
-    return item;
-  }
-
   getAllPlanets() {
+    if (this.allPlanets.length === this.planetsOnServerAmmount) return;
     const initialUrl = this.planetsApiService.requestURL;
     this.downloadNextPlanets(initialUrl);
   }
@@ -35,25 +31,33 @@ export class PlanetsManagerService {
   downloadNextPlanets(url: string) {
     const subscription = this.planetsApiService.getNextPlanets(url).subscribe(
       (incomingData: IPlanetsCollection) => {
-        const incomingPlanets: IPlanet[] = incomingData.results;
-        this.addIdPropertyForEachInArray(incomingPlanets);
-        this.allPlanets.push(...incomingPlanets);
+
+        this.allPlanets.push(...incomingData.results);
+        this.setProgressData(incomingData.count, this.allPlanets.length);
 
         url = incomingData.next;
-        console.log("in planetsManager222: ", url);
-        console.log("allPlanets.length: ", this.allPlanets.length);
+        console.log("in planetsManager: ", url);
       },
       () => console.log("error while fetching data from server."),
       () => {
         if (url) this.downloadNextPlanets(url);
         else {
           subscription.unsubscribe();
-          this.my1subject.next(this.allPlanets);
+          this.informSubscribers();
         }
       }
     )
-
-    //todo: Create observable and subscribe to it in component(browser)
   };
 
+  setProgressData(ammount: number, planetsFetched: number) {
+    const planetsTotalAmmount: number = +ammount;
+    this.planetsOnServerAmmount = planetsTotalAmmount;
+
+    this.fetchingProgress$.next({ planetsTotalAmmount, planetsFetched });
+  }
+
+  informSubscribers(): void {
+    this.addIdPropertyForEachInArray(this.allPlanets);
+    this.planetsDataPackage$.next(this.allPlanets);
+  }
 }
