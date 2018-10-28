@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+import { IPlanetsCollection } from './../models/externalData';
 import { PlanetsManagerService } from './../services/planets-manager.service';
 import { IPlanet } from './../models/planet';
 import { PlanetsApiService } from '../services/planets-api.service';
@@ -23,56 +25,36 @@ export class PlanetsBrowserComponent {
   }
 
   set filterInputValue(inputValue: string) {
+    this.allPlanets = this.planetsManagerService.allPlanets;
     this._filterInputValue = inputValue;
     const filtredData: IPlanet[] = this.allPlanets.filter(item => item.name.toLowerCase().includes(this._filterInputValue));
     this.dataSource = new MatTableDataSource(filtredData);
   }
 
-  constructor(private planetsApiService: PlanetsApiService, private planetModelFixer: PlanetsManagerService) { }
+  constructor(private planetsApiService: PlanetsApiService, private planetsManagerService: PlanetsManagerService) { }
+
+  // myReceiverSubject = new Subject();
 
   ngOnInit() {
-    this.planetsApiService.get1st10PlanetsData().subscribe(
-      incomingData => {
-        this.planetsOnServerAmmount = +incomingData.count;
-        this.allPlanets = incomingData.results;
-        this.planetModelFixer.addIdPropertyForEachInArray(this.allPlanets);
-        this.updateTableData();
-      },
-      () => console.log("error while getting data from server. Planets downloaded so far: " + this.allPlanets.length),
-      () => {
-        this.downloadNextPlanets();
+    this.planetsManagerService.getAllPlanets();
+    const getConnection = this.planetsManagerService.my1subject.subscribe(
+      (item:IPlanet[]) => {
+        this.updateTableData(item);
+        console.log("received data: ", item);
       }
-    );
-  }
-
-  downloadNextPlanets() {
-    const downloadedPlanetsAmmount: number = this.allPlanets.length;
-    // if (downloadedPlanetsAmmount === this.planetsOnServerAmmount) return; // review me: Should this line stay here?
-
-    const subscription = this.planetsApiService.getNextPlanet(downloadedPlanetsAmmount).subscribe(
-      incomingPlanetData => {
-        const incomingDataFixed: IPlanet = this.planetModelFixer.createIdProperty(incomingPlanetData, downloadedPlanetsAmmount);
-        this.allPlanets.push(incomingPlanetData);
-        this.updateTableData();
-      },
-      () => console.log("error while getting data from server. Planets downloaded so far: " + downloadedPlanetsAmmount),
-      () => this.downloadNextPlanets()
     )
-
-    if (downloadedPlanetsAmmount === this.planetsOnServerAmmount) {
-      subscription.unsubscribe();
-      return;
-    };
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  updateTableData() {
+  updateTableData(allPlanetsData: IPlanet[]) {
+
+    this.allPlanets = allPlanetsData;
+
     this.dataSource = new MatTableDataSource(this.allPlanets);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(`updateTableData: ${JSON.stringify(this.allPlanets)}`);
   }
 }
 

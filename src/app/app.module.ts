@@ -8,6 +8,7 @@ import { PlanetsBrowserComponent } from './planets/planets-browser/planets-brows
 import { MaterialModule } from './material-ui/material.module';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
+import { PlanetDetailsComponent } from './planets/planet-details/planet-details.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +16,16 @@ import { FormsModule } from '@angular/forms';
     WelcomeComponent,
     PlanetsBrowserComponent,
     HeaderComponent,
+    PlanetDetailsComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: 'planets', component: PlanetsBrowserComponent }
+      { path: 'planets', component: PlanetsBrowserComponent },
+      { path: 'planets', component: PlanetsBrowserComponent },
+      { path: 'planets/:id', component: PlanetDetailsComponent },
     ]),
     HttpClientModule,
     MaterialModule,

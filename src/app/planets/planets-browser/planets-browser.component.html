@@ -22,7 +22,10 @@
 
       <ng-container matColumnDef="nr">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>nr</th>
-        <td mat-cell *matCellDef="let row"> {{row.appId}} </td>
+        <td mat-cell *matCellDef="let row">
+          <!-- <a [routerLink]="['planets', row.appId]"> {{row.appId}}</a> -->
+          <a [routerLink]="[row.appId]"> {{row.appId}}</a>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
