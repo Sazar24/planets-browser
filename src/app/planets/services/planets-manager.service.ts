@@ -17,19 +17,13 @@ export class PlanetsManagerService {
 
   constructor(private planetsApiService: PlanetsApiService) { }
 
-  addIdPropertyForEachInArray(array: IPlanet[]) {
-    array.forEach((item, index) => {
-      item.appId = index + 1;
-    })
-  }
-
-  getAllPlanets() {
+  public getAllPlanets() {
     if (this.allPlanets.length === this.planetsOnServerAmmount) return;
     const initialUrl = this.planetsApiService.requestURL;
     this.downloadNextPlanets(initialUrl);
   }
 
-  downloadNextPlanets(url: string) {
+  private downloadNextPlanets(url: string) {
     const subscription = this.planetsApiService.getNextPlanets(url).subscribe(
       (incomingData: IPlanetsCollection) => {
 
@@ -49,7 +43,7 @@ export class PlanetsManagerService {
     )
   };
 
-  setProgressData(ammount: number, planetsFetched: number) {
+  private setProgressData(ammount: number, planetsFetched: number) {
     this.planetsOnServerAmmount = ammount;
     let transferData: fetchingDataProgressInfo = {
       planetsFetched: planetsFetched,
@@ -58,8 +52,31 @@ export class PlanetsManagerService {
     this.fetchingProgress.next(transferData);
   }
 
-  informSubscribers(): void {
+  private addIdPropertyForEachInArray(array: IPlanet[]) {
+    array.forEach((item, index) => {
+      const extractedId: string = this.retrieveIdFromUrlProperty(item);
+      item.appId = extractedId;
+    })
+  }
+
+  private retrieveIdFromUrlProperty(planet: IPlanet): string {
+    // example incoming data: "url": "https://swapi.co/api/planets/1/"   ---> i need to extract that "1" and return it as "id". This is the only unique property of incoming data and they are not incoming in numeric (by url ascending) order
+    let itemUrl: string = planet.url;
+    itemUrl = itemUrl.slice(0, itemUrl.length - 1); // cutting of last "slash"
+    const lastRemainingSlashPosition: number = itemUrl.lastIndexOf("/");
+    const extractedId: string = itemUrl.substring(lastRemainingSlashPosition + 1);
+
+    return extractedId;
+  }
+
+  private sortAscendingById(array: IPlanet[]) {
+    array.sort((a: any, b: any) => { return a.appId - b.appId });
+  }
+
+  private informSubscribers(): void {
     this.addIdPropertyForEachInArray(this.allPlanets);
+    this.sortAscendingById(this.allPlanets);
+
     this.planetsDataPackage.next(this.allPlanets);
   }
 }

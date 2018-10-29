@@ -1,7 +1,7 @@
 import { PlanetsManagerService } from './../services/planets-manager.service';
 import { PlanetsApiService } from './../services/planets-api.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute ,Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPlanet } from '../models/planet';
 
 @Component({
@@ -10,9 +10,9 @@ import { IPlanet } from '../models/planet';
   styleUrls: ['./planet-details.component.css']
 })
 export class PlanetDetailsComponent implements OnInit {
-  planetIndex: number;
+  planetIndexInLocalArray: number;
+  planetOnServerNumber: number;
   planet: IPlanet;
-  // planet: IPlanet = new IPlanet();
 
   constructor(
     private route: ActivatedRoute,
@@ -22,16 +22,17 @@ export class PlanetDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.planetIndex = +this.route.snapshot.paramMap.get('id') -1;
+    this.planetIndexInLocalArray = +this.route.snapshot.paramMap.get('id') - 1;
+    this.planetOnServerNumber = +this.route.snapshot.paramMap.get('id');
     this.getPlanetData();
   }
 
   getPlanetData() {
     if (this.planetsManager.allPlanets.length) {
-      this.planet = this.planetsManager.allPlanets[this.planetIndex];
+      this.planet = this.planetsManager.allPlanets[this.planetIndexInLocalArray];
     }
     else {
-      const planet$ = this.planetsApiService.getPlanetById(this.planetIndex+1).subscribe(
+      const planet$ = this.planetsApiService.getPlanetById(this.planetOnServerNumber).subscribe(
         (item: IPlanet) => {
           this.planet = item;
         }

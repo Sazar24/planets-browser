@@ -17,7 +17,7 @@
 // }
 
 export class IPlanet {
-  appId?: number;
+  appId?: string;
   name: string;
   rotation_period: number;
   orbital_period: number;
