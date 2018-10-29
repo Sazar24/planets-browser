@@ -4,12 +4,9 @@
     <p style="color:red; border-bottom: 1 dashed red">
       {{planetsOnServerAmmount? null : "Attempting connect to the server..."}}
     </p>
-    <p>
-      There is {{planetsOnServerAmmount ? planetsOnServerAmmount : "[...calculating...]"}} planets in data-base.
-    </p>
-    <p>
-      Pick one from the list to see its details. You can also filter them out by name.
-    </p>
+    <p> There is {{planetsOnServerAmmount ? planetsOnServerAmmount : "[...calculating...]"}} planets in data-base. </p>
+    <p> Pick one from the list to see its details. You can also filter them out by name. </p>
+    <p> To see their details click a number in table below. </p>
     <p>
       <mat-progress-bar mode="determinate" [value]='progressBarValue'></mat-progress-bar>
     </p>

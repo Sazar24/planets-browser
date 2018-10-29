@@ -14,11 +14,11 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 
 export class PlanetsBrowserComponent {
-  private planetsOnServerAmmount: number;
-  private allPlanets: IPlanet[] = [];
+  public planetsOnServerAmmount: number;
+  public allPlanets: IPlanet[] = [];
   private dataSource: MatTableDataSource<IPlanet>;
   private displayedColumns: string[] = ['nr', 'name', 'population', 'climate', 'gravity'];
-  private progressBarValue: number = 0;
+  public progressBarValue: number = 0;
 
   _filterInputValue = '';
   get filterInputValue(): string {
@@ -35,7 +35,7 @@ export class PlanetsBrowserComponent {
 
   ngOnInit() {
     this.allPlanets = this.planetsManager.allPlanets;
-    this.allPlanets = this.planetsManager.allPlanets;
+    this.planetsOnServerAmmount = this.planetsManager.planetsOnServerAmmount;
     if (this.allPlanets.length) {
       this.updateTableData(this.allPlanets);
     }

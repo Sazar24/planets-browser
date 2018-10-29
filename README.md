@@ -1,29 +1,21 @@
-# MyFirstApp
+# Planets browser
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
+This is a simple planets-browser page.  
+It uses star-wars api, whitch can be found here: swapi.co/api.
 
-## Development server
+### Running the app
+App is deployed at https://sazar24.github.io/planets-browser/ .
+To run it locally use ``npm start`` or ``ng serve``.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Main features
++ App downloads data from external server. 
++ Downloaded data - planets' data, to be exact, are listed in table (where user can choose how many rows of data should be displayed at once).
++ Planets can be filtered by names.
++ User can see any planets detail by clicking number of any planet from the list.
++ Navigation is also possible by routes (for example changing planets number in https://sazar24.github.io/planets-browser/planets/16 from "16" to "25")
++ There is a simple progress bar on "Planet List" page showing the progress of downloading data from the server.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## id 
+### Other...
+- It was written in Angular.
+- Photo in planets-detail view is just a placeholder.
+- It was made mostly for angular-pracices purposes.
