@@ -19,3 +19,8 @@ To run it locally use ``npm start`` or ``ng serve``.
 - It was written in Angular.
 - Photo in planets-detail view is just a placeholder.
 - It was made mostly for angular-pracices purposes.
+
+##### Still ToDo:
++ implementing some pipes to transform displayed planets details.
++ more photos
++ more colors

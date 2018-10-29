@@ -14,10 +14,10 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 
 export class PlanetsBrowserComponent {
-  public planetsOnServerAmmount: number;
-  public allPlanets: IPlanet[] = [];
-  private dataSource: MatTableDataSource<IPlanet>;
   private displayedColumns: string[] = ['nr', 'name', 'population', 'climate', 'gravity'];
+  private dataSource: MatTableDataSource<IPlanet>;
+  public allPlanets: IPlanet[] = [];
+  public planetsOnServerAmmount: number;
   public progressBarValue: number = 0;
 
   _filterInputValue = '';
