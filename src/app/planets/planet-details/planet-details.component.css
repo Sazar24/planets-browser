@@ -1,5 +1,9 @@
 .planet-details-view{
-    background-image: url('https://thumbs-prod.si-cdn.com/eOjWp-fKK6i-Jut6BpYsiPH7e3I=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/43/34/4334c90c-5425-4415-b6c5-07758514a309/taucetie.jpg');
+    background-image: url('https://www.b17.ru/foto/uploaded/upl_1484968602_29263.jpg');
+    background-size: 50% ;
     background-position: right center;
     background-repeat: no-repeat;
+    border-radius: 25px;
+
+    font-size: 16px;
 }
