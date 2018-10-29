@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs';
-import { IPlanetsCollection } from './../models/externalData';
+import { fetchingDataProgressInfo } from './../services/transferData.model';
 import { PlanetsManagerService } from './../services/planets-manager.service';
 import { IPlanet } from './../models/planet';
 import { PlanetsApiService } from '../services/planets-api.service';
@@ -13,7 +12,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   styleUrls: ['./planets-browser.component.css']
 })
 
-export class PlanetsBrowserComponent {
+export class PlanetsBrowserComponent implements OnInit{
   private displayedColumns: string[] = ['nr', 'name', 'population', 'climate', 'gravity'];
   private dataSource: MatTableDataSource<IPlanet>;
   public allPlanets: IPlanet[] = [];
@@ -31,7 +30,7 @@ export class PlanetsBrowserComponent {
     this.dataSource = new MatTableDataSource(filtredData);
   }
 
-  constructor(private planetsApiService: PlanetsApiService, private planetsManager: PlanetsManagerService) { }
+  constructor(private planetsManager: PlanetsManagerService) { }
 
   ngOnInit() {
     this.allPlanets = this.planetsManager.allPlanets;
@@ -47,15 +46,15 @@ export class PlanetsBrowserComponent {
 
   subscribeToIncomingData() {
 
-    const planetsData$ = this.planetsManager.planetsDataPackage$.subscribe(
+    const planetsData = this.planetsManager.planetsDataPackage.subscribe(
       (item: IPlanet[]) => {
         this.updateTableData(item);
-        planetsData$.unsubscribe();
+        planetsData.unsubscribe();
       }
     );
 
-    const planetsAmmount$ = this.planetsManager.fetchingProgress$.subscribe(
-      (data: { planetsTotalAmmount, planetsFetched }) => {
+    const fetchingProgress = this.planetsManager.fetchingProgress.subscribe(
+      (data: fetchingDataProgressInfo )=> {
         this.planetsOnServerAmmount = data.planetsTotalAmmount;
         this.progressBarValue = data.planetsFetched * 100 / data.planetsTotalAmmount;
       }

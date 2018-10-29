@@ -28,8 +28,8 @@ import { AuthorComponent } from './author/author.component';
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: 'planets', component: PlanetsBrowserComponent },
-      { path: 'definition', component: DefinitionComponent },
       { path: 'planets/:id', component: PlanetDetailsComponent },
+      { path: 'definition', component: DefinitionComponent },
       { path: 'author', component: AuthorComponent },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),

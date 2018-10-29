@@ -3,6 +3,7 @@ import { IPlanetsCollection } from './../models/externalData';
 import { Injectable } from '@angular/core';
 import { IPlanet } from '../models/planet';
 import { PlanetsApiService } from './planets-api.service';
+import { fetchingDataProgressInfo } from './transferData.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class PlanetsManagerService {
   public planetsOnServerAmmount: number;
   public allPlanets: IPlanet[] = [];
 
-  public planetsDataPackage$ = new Subject();
-  public fetchingProgress$ = new Subject();
+  public planetsDataPackage = new Subject();
+  public fetchingProgress = new Subject();
 
   constructor(private planetsApiService: PlanetsApiService) { }
 
@@ -49,14 +50,16 @@ export class PlanetsManagerService {
   };
 
   setProgressData(ammount: number, planetsFetched: number) {
-    const planetsTotalAmmount: number = +ammount;
-    this.planetsOnServerAmmount = planetsTotalAmmount;
-
-    this.fetchingProgress$.next({ planetsTotalAmmount, planetsFetched });
+    this.planetsOnServerAmmount = ammount;
+    let transferData: fetchingDataProgressInfo = {
+      planetsFetched: planetsFetched,
+      planetsTotalAmmount: ammount
+    };
+    this.fetchingProgress.next(transferData);
   }
 
   informSubscribers(): void {
     this.addIdPropertyForEachInArray(this.allPlanets);
-    this.planetsDataPackage$.next(this.allPlanets);
+    this.planetsDataPackage.next(this.allPlanets);
   }
 }
