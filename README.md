@@ -24,3 +24,10 @@ To run it locally use ``npm start`` or ``ng serve``.
 + implementing some pipes to transform displayed planets details.
 + more photos
 + more colors
+
+
+### Api "bugs":
+Swapi.co Api is... far from perfect.
+It allows to get data partially - by 10 planets. But its doesnt start with first 10 planets :/ Its starts with 2nd planet o.O (1st part of data contains planets 2..11 ).
+Futhermore, incoming planets' data has no "id" property or another unique identifier, yet are avaible under diffrent urls. 
+So all of this forces developer to use some uncommon solutions, to avoid potential bugs.

@@ -10,7 +10,7 @@ import { IPlanet } from '../models/planet';
   styleUrls: ['./planet-details.component.css']
 })
 export class PlanetDetailsComponent implements OnInit {
-  planetId: number;
+  planetIndex: number;
   planet: IPlanet;
   // planet: IPlanet = new IPlanet();
 
@@ -22,16 +22,16 @@ export class PlanetDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.planetId = +this.route.snapshot.paramMap.get('id');
+    this.planetIndex = +this.route.snapshot.paramMap.get('id') -1;
     this.getPlanetData();
   }
 
   getPlanetData() {
     if (this.planetsManager.allPlanets.length) {
-      this.planet = this.planetsManager.allPlanets[this.planetId];
+      this.planet = this.planetsManager.allPlanets[this.planetIndex];
     }
     else {
-      const planet$ = this.planetsApiService.getPlanetById(this.planetId).subscribe(
+      const planet$ = this.planetsApiService.getPlanetById(this.planetIndex+1).subscribe(
         (item: IPlanet) => {
           this.planet = item;
         }
