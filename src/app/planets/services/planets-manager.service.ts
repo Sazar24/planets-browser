@@ -36,9 +36,8 @@ export class PlanetsManagerService {
         this.setProgressData(incomingData.count, this.allPlanets.length);
 
         url = incomingData.next;
-        console.log("in planetsManager: ", url);
       },
-      () => console.log("error while fetching data from server."),
+      () => console.log("error while fetching data from server..."),
       () => {
         if (url) this.downloadNextPlanets(url);
         else {

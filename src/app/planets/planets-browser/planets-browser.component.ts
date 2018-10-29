@@ -35,7 +35,7 @@ export class PlanetsBrowserComponent {
 
   ngOnInit() {
     this.allPlanets = this.planetsManager.allPlanets;
-    this.planetsOnServerAmmount = this.planetsManager.planetsOnServerAmmount;
+    this.allPlanets = this.planetsManager.allPlanets;
     if (this.allPlanets.length) {
       this.updateTableData(this.allPlanets);
     }

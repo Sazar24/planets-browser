@@ -9,6 +9,8 @@ import { MaterialModule } from './material-ui/material.module';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
 import { PlanetDetailsComponent } from './planets/planet-details/planet-details.component';
+import { DefinitionComponent } from './planets/definition/definition.component';
+import { AuthorComponent } from './author/author.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { PlanetDetailsComponent } from './planets/planet-details/planet-details.
     PlanetsBrowserComponent,
     HeaderComponent,
     PlanetDetailsComponent,
+    DefinitionComponent,
+    AuthorComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,8 +28,10 @@ import { PlanetDetailsComponent } from './planets/planet-details/planet-details.
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: 'planets', component: PlanetsBrowserComponent },
-      { path: 'planets', component: PlanetsBrowserComponent },
+      { path: 'definition', component: DefinitionComponent },
       { path: 'planets/:id', component: PlanetDetailsComponent },
+      { path: 'author', component: AuthorComponent },
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
     HttpClientModule,
     MaterialModule,

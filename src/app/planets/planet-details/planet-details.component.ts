@@ -31,7 +31,6 @@ export class PlanetDetailsComponent implements OnInit {
       this.planet = this.planetsManager.allPlanets[this.planetId];
     }
     else {
-      console.log("attempt to connect to server");
       const planet$ = this.planetsApiService.getPlanetById(this.planetId).subscribe(
         (item: IPlanet) => {
           this.planet = item;
