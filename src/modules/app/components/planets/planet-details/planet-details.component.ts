@@ -1,8 +1,8 @@
-import { PlanetsManagerService } from './../services/planets-manager.service';
-import { PlanetsApiService } from './../services/planets-api.service';
+import { PlanetsManagerService } from '../../../services/planets-manager.service';
+import { PlanetsApiService } from '../../../services/planets-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPlanet } from '../models/planet';
+import { IPlanet } from '../../../services/models/planet';
 
 @Component({
   selector: 'app-planet-details',
@@ -36,7 +36,7 @@ export class PlanetDetailsComponent implements OnInit {
         (item: IPlanet) => {
           this.planet = item;
         }
-      )
+      );
     }
   }
 

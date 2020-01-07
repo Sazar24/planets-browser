@@ -1,7 +1,7 @@
 import { Observable, Subject } from 'rxjs';
-import { IPlanetsCollection } from './../models/externalData';
+import { IPlanetsCollection } from './models/externalData';
 import { Injectable } from '@angular/core';
-import { IPlanet } from '../models/planet';
+import { IPlanet } from './models/planet';
 import { PlanetsApiService } from './planets-api.service';
 import { fetchingDataProgressInfo } from './transferData.model';
 

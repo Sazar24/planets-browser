@@ -1,5 +1,5 @@
-import { IPlanetsCollection } from './../models/externalData';
-import { IPlanet } from '../models/planet';
+import { IPlanetsCollection } from './models/externalData';
+import { IPlanet } from './models/planet';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
